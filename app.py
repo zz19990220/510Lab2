@@ -18,7 +18,7 @@ df = pd.read_csv("https://raw.githubusercontent.com/dataprofessor/data/master/pe
 with st.sidebar:
     st.header("Filter Options")
     # Slider for filtering by bill length
-    bill_length_slider = st.slider(
+    bill_length_range = st.slider(
         "Bill Length (mm)",
         float(min(df["bill_length_mm"])),  # cast to float to handle slider step issues
         float(max(df["bill_length_mm"])),
@@ -37,6 +37,16 @@ with st.sidebar:
         options=list(df["island"].unique()),
     )
 
+    # Multiselect for selecting which columns to display
+    columns_to_display = st.multiselect(
+        "Select columns to display",
+        options=df.columns,
+        default=df.columns
+    )
+
+    # Slider to select the number of rows to display
+    row_display = st.slider("Number of Rows to Display", 1, len(df), 5)
+
 # Apply filters to the data
 # Filter by selected species if any
 if species_filter:
@@ -47,12 +57,13 @@ if islands_filter:
     df = df[df["island"].isin(islands_filter)]
 
 # Filter by bill length using the range slider
-df = df[(df["bill_length_mm"] >= bill_length_slider[0]) & (df["bill_length_mm"] <= bill_length_slider[1])]
+df = df[(df["bill_length_mm"] >= bill_length_range[0]) & (df["bill_length_mm"] <= bill_length_range[1])]
 
 # Display filtered data
 st.header("Filtered Data")
-st.dataframe(df)
+st.dataframe(df[columns_to_display].head(row_display))
 
 # Add an expander to show the raw data on demand
 with st.expander("View RAW Data"):
     st.write(df)
+
