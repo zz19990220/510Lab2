@@ -17,12 +17,12 @@ df = pd.read_csv("https://raw.githubusercontent.com/dataprofessor/data/master/pe
 # Define filters in the sidebar
 with st.sidebar:
     st.header("Filter Options")
-    # Slider for filtering by bill length
+    # Slider for filtering by bill length with given min and max values and default range
     bill_length_range = st.slider(
         "Bill Length (mm)",
-        float(df["bill_length_mm"].min()),  # Ensure float type
-        float(df["bill_length_mm"].max()),
-        (float(df["bill_length_mm"].min()), float(df["bill_length_mm"].max()))  # Set a range as the default value
+        32.1,  # Min value
+        59.6,  # Max value
+        (32.1, 59.6)  # Default range
     )
     
     # Selectbox for selecting species, with an option to select all
@@ -57,7 +57,7 @@ if species_filter != "All":
 if islands_filter:
     df = df[df["island"].isin(islands_filter)]
 
-# Filter by bill length using the range slider
+# Filter by bill length using the specified range slider
 df = df[(df["bill_length_mm"] >= bill_length_range[0]) & (df["bill_length_mm"] <= bill_length_range[1])]
 
 # Display filtered data
