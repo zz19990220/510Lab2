@@ -3,13 +3,13 @@ import pandas as pd
 
 # Set Streamlit page configuration
 st.set_page_config(
-    page_title="Penguins Explorer",
-    page_icon="🐧",
+    page_title="Flamingo Explorer",
+    page_icon="🦩",
     layout="centered",
 )
 
 # Title of the web app
-st.title("🐧 Penguins Explorer")
+st.title("🦩 Flamingo Explorer")
 
 # Load the dataset
 df = pd.read_csv("https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv")
