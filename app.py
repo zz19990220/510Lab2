@@ -12,7 +12,7 @@ st.set_page_config(
 st.title("🦩 Flamingo")
 
 # Load the dataset
-df = pd.read_csv("https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/zz19990220/T510Inclass2/main/climate_change_indicators.csv")
 
 # Define filters in the sidebar
 with st.sidebar:
