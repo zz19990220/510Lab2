@@ -4,7 +4,7 @@ import streamlit as st
 import plotly.express as px
 
 # Load the dataset (Make sure to download the dataset from Kaggle and update the path accordingly)
-DATA_URL = "/Users/zhangzeng/Desktop/510 Assignment2/water_potability.csv"
+DATA_URL = "https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv"
 
 @st.cache
 def load_data():
