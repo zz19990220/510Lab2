@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Set Streamlit page configuration
 st.set_page_config(
@@ -10,6 +12,13 @@ st.set_page_config(
 
 # Title of the web app
 st.title("🐶 Dog Information")
+
+# Overview of the dataset using Markdown
+st.markdown("""
+This dataset contains detailed information about various dog breeds, including their height, 
+breed characteristics, and preferred living environment. Use the sidebar to filter the data based on breed, 
+height, or environment and explore the characteristics of your favorite dogs.
+""")
 
 # Load the dataset
 df = pd.read_csv("https://raw.githubusercontent.com/zz19990220/T510Inclass2/main/dog.csv")
@@ -49,24 +58,34 @@ with st.sidebar:
     row_display = st.slider("Number of Rows to Display", 1, len(df), 5)
 
 # Apply filters to the data
-# Filter by selected breed if not 'All'
 if breed_filter != "All":
     df = df[df["breed"] == breed_filter]
 
-# Filter by selected environment
 if environment_filter:
     df = df[df["environment"].isin(environment_filter)]
 
-# Filter by height using the range slider
 df = df[(df["height_cm"] >= height_range[0]) & (df["height_cm"] <= height_range[1])]
 
 # Display filtered data
 st.header("Filtered Data")
-# Make sure to only display selected columns and handle case when no columns are selected
 if columns_to_display:
     st.dataframe(df[columns_to_display].head(row_display))
 else:
     st.write("No columns selected. Please select columns to display.")
+
+# Visualization
+st.header("Data Visualization")
+
+# If breed was not filtered to 'All', show average height by environment for the selected breed
+if breed_filter != "All":
+    st.subheader(f"Average Height by Environment for {breed_filter}")
+    avg_height = df.groupby('environment')['height_cm'].mean().reset_index()
+    sns.barplot(x='environment', y='height_cm', data=avg_height)
+    plt.xlabel("Environment")
+    plt.ylabel("Average Height (cm)")
+    st.pyplot(plt)
+else:
+    st.write("Select a specific breed to see average height by environment.")
 
 # Add an expander to show the raw data on demand
 with st.expander("View RAW Data"):
