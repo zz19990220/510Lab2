@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Set Streamlit page configuration
 st.set_page_config(
@@ -92,7 +93,7 @@ st.header("Data Visualization")
 st.subheader("Breed Distribution")
 breed_counts = df["breed"].value_counts()
 fig, ax = plt.subplots()
-ax.bar(breed_counts.index, breed_counts.values, color='skyblue')
+sns.barplot(x=breed_counts.index, y=breed_counts.values, palette="viridis", ax=ax)
 plt.xticks(rotation=90)
 plt.xlabel('Breed')
 plt.ylabel('Count')
@@ -102,8 +103,18 @@ st.pyplot(fig)
 # Histogram for height distribution
 st.subheader("Height Distribution")
 fig, ax = plt.subplots()
-ax.hist(df["height_cm"], bins=20, color='skyblue', edgecolor='black')
+sns.histplot(df["height_cm"], bins=20, color='skyblue', edgecolor='black', ax=ax)
 plt.xlabel('Height (cm)')
 plt.ylabel('Count')
 plt.title('Height Distribution')
+st.pyplot(fig)
+
+# Boxplot for weight distribution by breed
+st.subheader("Weight Distribution by Breed")
+fig, ax = plt.subplots()
+sns.boxplot(x="breed", y="weight_kg", data=df, palette="viridis", ax=ax)
+plt.xticks(rotation=90)
+plt.xlabel('Breed')
+plt.ylabel('Weight (kg)')
+plt.title('Weight Distribution by Breed')
 st.pyplot(fig)
