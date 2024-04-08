@@ -12,7 +12,7 @@ st.set_page_config(
 st.title("🦩 Flamingo")
 
 # Load the dataset
-df = pd.read_csv("https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv")
+df = pd.read_csv("https://www.kaggle.com/datasets/adityakadiwal/water-potability?select=water_potability.csv")
 
 # Define filters in the sidebar
 with st.sidebar:
