@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import altair as alt  # For data visualization
 
 # Set Streamlit page configuration
 st.set_page_config(
@@ -10,14 +9,11 @@ st.set_page_config(
     layout="centered",
 )
 
-# Title of the web app
-st.title("🐶 Dog Information")
-
-# Overview of the dataset using Markdown
+# Title and overview of the web app
+st.title("🐶 Dog Information Dashboard")
 st.markdown("""
-This dataset contains detailed information about various dog breeds, including their height, 
-breed characteristics, and preferred living environment. Use the sidebar to filter the data based on breed, 
-height, or environment and explore the characteristics of your favorite dogs.
+This dashboard provides insights into various dog breeds, including their height, weight, and suitable environment.
+Use the filters on the left to customize the data view.
 """)
 
 # Load the dataset
@@ -53,40 +49,3 @@ with st.sidebar:
         options=list(df.columns),
         default=list(df.columns)
     )
-
-    # Slider to select the number of rows to display, default to showing 5 rows
-    row_display = st.slider("Number of Rows to Display", 1, len(df), 5)
-
-# Apply filters to the data
-if breed_filter != "All":
-    df = df[df["breed"] == breed_filter]
-
-if environment_filter:
-    df = df[df["environment"].isin(environment_filter)]
-
-df = df[(df["height_cm"] >= height_range[0]) & (df["height_cm"] <= height_range[1])]
-
-# Display filtered data
-st.header("Filtered Data")
-if columns_to_display:
-    st.dataframe(df[columns_to_display].head(row_display))
-else:
-    st.write("No columns selected. Please select columns to display.")
-
-# Visualization
-st.header("Data Visualization")
-
-# If breed was not filtered to 'All', show average height by environment for the selected breed
-if breed_filter != "All":
-    st.subheader(f"Average Height by Environment for {breed_filter}")
-    avg_height = df.groupby('environment')['height_cm'].mean().reset_index()
-    sns.barplot(x='environment', y='height_cm', data=avg_height)
-    plt.xlabel("Environment")
-    plt.ylabel("Average Height (cm)")
-    st.pyplot(plt)
-else:
-    st.write("Select a specific breed to see average height by environment.")
-
-# Add an expander to show the raw data on demand
-with st.expander("View RAW Data"):
-    st.write(df)
