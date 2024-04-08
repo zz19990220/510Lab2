@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Set Streamlit page configuration
 st.set_page_config(
@@ -10,6 +11,18 @@ st.set_page_config(
 
 # Title of the web app
 st.title("🐶 Dog Information")
+
+# Overview of the dataset
+st.markdown("""
+This dataset contains information about various breeds of dogs. Here's what each column represents:
+- **Breed**: The breed of the dog
+- **Environment**: The environment where the dog is commonly found (Urban, Suburban, Rural)
+- **Height_cm**: The average height of the dog in centimeters
+- **Weight_kg**: The average weight of the dog in kilograms
+- **Lifespan_years**: The average lifespan of the dog in years
+- **Temperament**: The common temperament of the dog
+- **Sex**: The sex of the dog (Male, Female)
+""")
 
 # Load the dataset
 df = pd.read_csv("https://raw.githubusercontent.com/zz19990220/T510Inclass2/main/dog.csv")
@@ -71,3 +84,26 @@ else:
 # Add an expander to show the raw data on demand
 with st.expander("View RAW Data"):
     st.write(df)
+
+# Data visualization
+st.header("Data Visualization")
+
+# Bar chart for breed distribution
+st.subheader("Breed Distribution")
+breed_counts = df["breed"].value_counts()
+fig, ax = plt.subplots()
+ax.bar(breed_counts.index, breed_counts.values, color='skyblue')
+plt.xticks(rotation=90)
+plt.xlabel('Breed')
+plt.ylabel('Count')
+plt.title('Breed Distribution')
+st.pyplot(fig)
+
+# Histogram for height distribution
+st.subheader("Height Distribution")
+fig, ax = plt.subplots()
+ax.hist(df["height_cm"], bins=20, color='skyblue', edgecolor='black')
+plt.xlabel('Height (cm)')
+plt.ylabel('Count')
+plt.title('Height Distribution')
+st.pyplot(fig)
