@@ -14,17 +14,15 @@ streamlit run app.py
 
 ## Lessons Learned
 
-- Learned how to use Streamlit to create interactive web applications.
-- Gained experience in handling and filtering data using pandas.
-- Understood the importance of user-friendly interfaces in data analysis.
+- Gained new experience in processing and filtering data using pandas and learned what kind of dataset is good and clean.
+- Understood the importance of user-friendly interfaces in data analysis in online references and discovered that data visualization is more readable than straight numbers.
+- Knew how to create interactive web applications using Streamlit.
 
 ## Questions
 
-- How can we optimize the data loading process for large datasets?
 - Is there a way to save the user's filter preferences for future visits?
 
 ## TODO
 
 - Add more filter options for more detailed analysis.
-- Implement a feature to save the user's filter preferences.
 - Optimize the data loading process for better performance with large datasets.
