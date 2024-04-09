@@ -1,4 +1,4 @@
-# 🐶 Dog Information Explorer
+# 🐶 Dog Information Filter
 
 This is an easy to use data analysis app based on classroom content designed to explore interesting insights about different breeds of dogs. The application allows users to filter dogs based on their height, breed and environment. Also selectable are the columns to display and the number of rows to display.
 
